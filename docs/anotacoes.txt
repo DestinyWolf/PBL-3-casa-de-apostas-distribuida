@@ -1,0 +1,3 @@
+nossa aplicação tem 2 contratos
+criar a aposta
+comprar uma cota da aposta
