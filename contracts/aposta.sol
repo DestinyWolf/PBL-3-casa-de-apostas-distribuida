@@ -20,13 +20,13 @@ contract BetContract {
     Status betStatus;
 
     //somente o dono do contrato podera chamar a funcao
-    modifier isOwner{
-        require(msg.sender == owner, "Only the owner can perform this action");
+    modifier isOwner(address _from){
+        require(_from == owner, "Only the owner can perform this action");
         _;
     }
 
-    constructor(address token) {
-        owner = msg.sender;
+    constructor(address token, address _owner) {
+        owner = _owner;
         tokenAddress = token;
         betStatus = Status.OPEN;
         opc1 = 0;
@@ -42,7 +42,7 @@ contract BetContract {
 
 
     //criacao de uma aposta
-    function bet(uint256 amount, uint256 opc) public returns(bool) {
+    function bet(address _from, uint256 amount, uint256 opc) public returns(bool) {
         require(betStatus == Status.OPEN, "bet closed");
         require(amount == 500, "bet amount must be 500");
         require(opc == 1 || opc == 2, "opc must be 1 or 2");
@@ -50,16 +50,16 @@ contract BetContract {
         if (opc % 2 == 0) {
             opc1 += 1;
             amoutOpc1 += (amount - (amount * 5 / 100));
-            bettors[opc].push(msg.sender);
+            bettors[opc].push(_from);
         } else {
             opc2 += 1;
             amoutOpc2 += (amount - (amount * 5 / 100));
-            bettors[opc].push(msg.sender);
+            bettors[opc].push(_from);
         }
-        WorkToken(tokenAddress).transferFrom(msg.sender, address(this), amount); //recolhe o dinheiro da pessoa
+        WorkToken(tokenAddress).transferFrom(_from, address(this), amount); //recolhe o dinheiro da pessoa
         WorkToken(tokenAddress).transfer(owner, amount * 5 / 100); //envia 5% para o dono do contrato
-        allBettors.push(msg.sender);
-        emit Bet(msg.sender, address(this), amount, opc);
+        allBettors.push(_from);
+        emit Bet(_from, address(this), amount, opc);
         return true;
     }
 
@@ -72,7 +72,7 @@ contract BetContract {
     }
 
     //sorteia os ganhadores
-    function giftWinners() public isOwner returns (bool) {
+    function giftWinners(address _owner) public isOwner(_owner) returns (bool) {
         require(betStatus == Status.OPEN, "bet closed");
         uint number = random() % 2;
         uint balance = WorkToken(tokenAddress).balanceOf(address(this)); //valor armazenado no contrato
@@ -122,12 +122,12 @@ contract BetContract {
     }
 
     //fecha a aposta
-    function statusClose() public isOwner {
+    function statusClose(address _owner) public isOwner(_owner) {
         betStatus = Status.CLOSED;
     }
 
     //abre a aposta
-    function statusOpen() public isOwner {
+    function statusOpen(address _owner) public isOwner(_owner) {
         betStatus = Status.OPEN;
     }
 
