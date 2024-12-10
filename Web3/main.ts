@@ -177,7 +177,7 @@ function main () {
         }
     ]
 
-    var smartContract = null;
+    var smartContract = abi.at(''); //id do smart contract
 
     web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"))
 
