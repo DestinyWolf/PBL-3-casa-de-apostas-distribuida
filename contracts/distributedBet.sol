@@ -8,8 +8,6 @@ import "./workToken.sol";
 contract DistributedBet {
 
 
-
-
     //varaveis
     mapping(address => BetContract) private bets;
     address private owner;
@@ -30,12 +28,12 @@ contract DistributedBet {
         return true;
     }
 
-    function payABet(address _owner, int256 value, int256 opc) public returns(bool){
+    function payABet(address _owner, uint256 value, uint256 opc) public returns(bool){
         bets[_owner].bet(msg.sender, value, opc);
         return true;
     }
 
-    function betOdd(address _owner) public view returns(int256[] memory){
+    function betOdd(address _owner) public view returns(uint256[] memory){
         return bets[_owner].CalcOdd();
     }
 
@@ -48,7 +46,7 @@ contract DistributedBet {
         return bets[_owner];
     }
 
-    function showBetGift(address _owner) public view returns(int256) {
+    function showBetGift(address _owner) public view returns(uint256) {
         return bets[_owner].getValueGift();
     }
 

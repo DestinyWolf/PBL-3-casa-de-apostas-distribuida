@@ -13,12 +13,14 @@ contract BetContract {
     address[] private allBettors;
     address private owner;
     address private tokenAddress;
-    int256 private opc1;
-    int256 private opc2;
-    int256 private amoutOpc1;
-    int256 private amoutOpc2;
-    mapping (int => address[]) bettors;
-    Status betStatus;
+    uint256 private opc1;
+    uint256 private opc2;
+    uint256 private amoutOpc1;
+    uint256 private amoutOpc2;
+    mapping (uint => address[]) public bettors;
+    Status private betStatus ;
+    uint256 private ammountForWinner;
+    address[] private winner;
 
     //somente o dono do contrato podera chamar a funcao
     modifier isOwner(address _from){
@@ -38,12 +40,12 @@ contract BetContract {
 
     
     //eventos que sao registrados na blockchain
-    event Bet(address indexed _to, address _from, int256 _amount, int256 opc);
-    event Winners(address[] indexed wallet, address indexed  owner,int256  amount, int256 result);
+    event Bet(address indexed _to, address _from, uint256 _amount, uint256 opc);
+    event Winners(address[] indexed wallet, address indexed  owner, uint256  amount, uint256 result);
 
 
     //criacao de uma aposta
-    function bet(address _from, int256 amount, int256 opc) public returns(bool) {
+    function bet(address _from, uint256 amount, uint256 opc) public returns(bool) {
         require(betStatus == Status.OPEN, "bet closed");
         require(amount == 500, "bet amount must be 500");
         require(opc == 1 || opc == 2, "opc must be 1 or 2");
@@ -65,8 +67,8 @@ contract BetContract {
     }
 
     //realiza o calculo da odd
-    function CalcOdd() public view returns(int256[] memory) {
-        int256[] memory odd = new int256[](2);
+    function CalcOdd() public view returns(uint256[] memory) {
+        uint256[] memory odd = new uint256[](2);
         odd[0] = amoutOpc1;
         odd[1] = amoutOpc2;
         return odd;
@@ -77,53 +79,41 @@ contract BetContract {
         require(betStatus == Status.OPEN, "bet closed");
         
         if (allBettors.length != 0 ) {
-            int number = int(random()) % 2;
-            int balance = WorkToken(tokenAddress).balanceOf(address(this)); //valor armazenado no contrato
+            uint number = random() % 2;
+            uint balance = WorkToken(tokenAddress).balanceOf(address(this)); //valor armazenado no contrato
 
-            int256 amoutForUser = balance / (number == 0 ? opc1 : opc2); // calcula quanto cada carteira ira receber
-
+            uint256 amoutForUser = balance / (number == 0 ? opc1 : opc2); // calcula quanto cada carteira ira receber
+            
+            ammountForWinner = amoutForUser;
+            
+            winner = bettors[number == 0 ? 2 : 1];
             //caso ninguem ganhe devolve o dinheiro removendo a taxa
-            if (bettors[number].length == 0){
+            if (bettors[number == 0 ? opc1 : opc2].length == 0){
                 for(uint256 i = 0; i < allBettors.length; i++) {
-                    amoutForUser = balance / int(allBettors.length);
+                    amoutForUser = balance / allBettors.length;
                     WorkToken(tokenAddress).transfer(allBettors[i], amoutForUser);
                 }
             }
 
             //transfere para cada usuario o valor que ele ganhou
-            for(uint256 i = 0; i < bettors[number == 0  ? int(0):int(1)].length; i++) {
-                WorkToken(tokenAddress).transfer(bettors[number == 0  ? int(0):int(1)][i], amoutForUser);
+            for(uint256 i = 0; i < bettors[number == 0  ? 2:1].length; i++) {
+                WorkToken(tokenAddress).transfer(bettors[number == 0  ? 2:1][i], amoutForUser);
             }
-            int256 restOfMoney = WorkToken(tokenAddress).balanceOf(address(this));
+            uint256 restOfMoney = WorkToken(tokenAddress).balanceOf(address(this));
             if(restOfMoney > 0){
                 WorkToken(tokenAddress).transfer(owner, restOfMoney);
             }
 
             //realiza a emissao do evento
-            emit Winners(bettors[number], owner, balance, number);
+            emit Winners(bettors[number == 0  ? 2:1], owner, balance, number);
 
             betStatus = Status.CLOSED;
-            opc1 = 0;
-            opc2 = 0;
-            amoutOpc1 = 0;
-            amoutOpc2 = 0;
-            bettors[1] = new address[](0);
-            bettors[2] = new address[](0);
-            allBettors = new address[](0);
-            
-            
+
             
         } else {
 
+            ammountForWinner = 0;
             betStatus = Status.CLOSED;
-            opc1 = 0;
-            opc2 = 0;
-            amoutOpc1 = 0;
-            amoutOpc2 = 0;
-            bettors[1] = new address[](0);
-            bettors[2] = new address[](0);
-            allBettors = new address[](0);
-
             //realiza a emissao do evento
             emit Winners(allBettors, owner, 0, 0);
         }
@@ -132,7 +122,7 @@ contract BetContract {
     }
 
     //retorna o premio total ate o momento da consulta
-    function getValueGift() public view returns(int256) {
+    function getValueGift() public view returns(uint256) {
         require(betStatus == Status.OPEN, "bet closed");
         return WorkToken(tokenAddress).balanceOf(address(this));
     }
@@ -163,5 +153,13 @@ contract BetContract {
 
     function getOwner() public view returns(address) {
         return owner;
+    }
+
+    function getAmmountForWinner() public view returns(uint) {
+        return ammountForWinner;
+    }
+
+    function getWinner() public view returns(address [] memory) {
+        return winner;
     }
 }

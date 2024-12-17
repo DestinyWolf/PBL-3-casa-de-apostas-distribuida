@@ -8,26 +8,26 @@ contract WorkToken {
     string private _name = "Lulacoins Token";
     string private _symbol = "LCT";
     string private standard = "WorkToken v1.0";
-    int256 private _totalSupply;
-    int256 private _decimals = 18;
+    uint256 private _totalSupply;
+    uint256 private _decimals = 18;
 
     //eventos
-    event Transfer(address indexed _from, address indexed _to, int256 _value);
+    event Transfer(address indexed _from, address indexed _to, uint256 _value);
 
-    event Approval(address indexed _owner, address indexed _spender, int256 _value);
+    event Approval(address indexed _owner, address indexed _spender, uint256 _value);
 
     // allowance e balanceOf 2 mappings
-    mapping(address => int256) public balanceOf;
-    mapping(address => mapping(address => int256)) public allowance;
+    mapping(address => uint256) public balanceOf;
+    mapping(address => mapping(address => uint256)) public allowance;
 
     //construtor, função que é execultada apenas uma unica vez durante o deploy do contrato
-    constructor(int256 _initialSupply) {
-        balanceOf[msg.sender] = _initialSupply * 10;
-        _totalSupply = _initialSupply  * int(10) ; 
+    constructor(uint256 _initialSupply) {
+        balanceOf[msg.sender] = _initialSupply * 10 ** _decimals;
+        _totalSupply = _initialSupply  * 10 ** _decimals ; 
     }
 
     //trasnferencia de tokens interna de uma carteira para outra
-    function transfer(address _to, int256 _value) public returns(bool) {
+    function transfer(address _to, uint256 _value) public returns(bool) {
         require(balanceOf[msg.sender] >= _value, "no have cash strange");
         balanceOf[msg.sender] -= _value;
         balanceOf[_to] += _value;
@@ -36,14 +36,14 @@ contract WorkToken {
     }
 
     //aprova que um terceiro possa realizar transferencia de uma carteira para outra
-    function approve(address _spender, int256 _value) public returns(bool success) {
+    function approve(address _spender, uint256 _value) public returns(bool success) {
         allowance[msg.sender][_spender] = _value;
         emit Approval(msg.sender, _spender, _value);
         return true;
     }
 
     //transferencia externa de uma carteira para outra
-    function transferFrom(address _from, address _to, int256 _value) public returns(bool success) {
+    function transferFrom(address _from, address _to, uint256 _value) public returns(bool success) {
         require(balanceOf[_from] >= _value, "he not have cash");
         require(allowance[_from][msg.sender] >= _value, "spender limit exceeded");
         balanceOf[_from] -= _value;
@@ -55,7 +55,7 @@ contract WorkToken {
     
     //funções de apenas visualização, não alteram o estado do contrato
 
-    function balance(address _who) public view returns(int256 cash) {
+    function balance(address _who) public view returns(uint256 cash) {
         return balanceOf[_who];
     }
     //retorna o nome dos tokens
@@ -69,12 +69,12 @@ contract WorkToken {
     }
 
     //retorna o valor da menor fração de um token
-    function decimals() public view returns(int256) {
+    function decimals() public view returns(uint256) {
         return _decimals;
     }
 
     //retorna o total de tokens existentes
-    function totalSupply() public view returns (int256) {
+    function totalSupply() public view returns (uint256) {
         return _totalSupply;
     }
 }

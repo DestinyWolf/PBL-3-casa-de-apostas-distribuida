@@ -16,6 +16,12 @@ interface DataMange {
     bettors: number;
 }
 
+interface oldResults {
+    id: string;
+    supply: number;
+    winners: string[];
+}
+
 export default function Home() {
     const web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545/"));
 
@@ -55,9 +61,9 @@ export default function Home() {
             "name": "betOdd",
             "outputs": [
                 {
-                    "internalType": "int256[]",
+                    "internalType": "uint256[]",
                     "name": "",
-                    "type": "int256[]"
+                    "type": "uint256[]"
                 }
             ],
             "stateMutability": "view",
@@ -135,14 +141,14 @@ export default function Home() {
                     "type": "address"
                 },
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "value",
-                    "type": "int256"
+                    "type": "uint256"
                 },
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "opc",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "name": "payABet",
@@ -167,9 +173,9 @@ export default function Home() {
             "name": "showBetGift",
             "outputs": [
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "stateMutability": "view",
@@ -212,15 +218,15 @@ export default function Home() {
                 },
                 {
                     "indexed": false,
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "_amount",
-                    "type": "int256"
+                    "type": "uint256"
                 },
                 {
                     "indexed": false,
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "opc",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "name": "Bet",
@@ -243,15 +249,15 @@ export default function Home() {
                 },
                 {
                     "indexed": false,
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "amount",
-                    "type": "int256"
+                    "type": "uint256"
                 },
                 {
                     "indexed": false,
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "result",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "name": "Winners",
@@ -262,9 +268,9 @@ export default function Home() {
             "name": "CalcOdd",
             "outputs": [
                 {
-                    "internalType": "int256[]",
+                    "internalType": "uint256[]",
                     "name": "",
-                    "type": "int256[]"
+                    "type": "uint256[]"
                 }
             ],
             "stateMutability": "view",
@@ -278,14 +284,14 @@ export default function Home() {
                     "type": "address"
                 },
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "amount",
-                    "type": "int256"
+                    "type": "uint256"
                 },
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "opc",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "name": "bet",
@@ -297,6 +303,43 @@ export default function Home() {
                 }
             ],
             "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "bettors",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getAmmountForWinner",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
             "type": "function"
         },
         {
@@ -343,9 +386,22 @@ export default function Home() {
             "name": "getValueGift",
             "outputs": [
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "",
-                    "type": "int256"
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getWinner",
+            "outputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "",
+                    "type": "address[]"
                 }
             ],
             "stateMutability": "view",
@@ -402,9 +458,9 @@ export default function Home() {
         {
             "inputs": [
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "_initialSupply",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "stateMutability": "nonpayable",
@@ -427,9 +483,9 @@ export default function Home() {
                 },
                 {
                     "indexed": false,
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "_value",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "name": "Approval",
@@ -452,9 +508,9 @@ export default function Home() {
                 },
                 {
                     "indexed": false,
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "_value",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "name": "Transfer",
@@ -476,9 +532,9 @@ export default function Home() {
             "name": "allowance",
             "outputs": [
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "stateMutability": "view",
@@ -492,9 +548,9 @@ export default function Home() {
                     "type": "address"
                 },
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "_value",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "name": "approve",
@@ -519,9 +575,9 @@ export default function Home() {
             "name": "balance",
             "outputs": [
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "cash",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "stateMutability": "view",
@@ -538,9 +594,9 @@ export default function Home() {
             "name": "balanceOf",
             "outputs": [
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "stateMutability": "view",
@@ -551,9 +607,9 @@ export default function Home() {
             "name": "decimals",
             "outputs": [
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "stateMutability": "view",
@@ -590,9 +646,9 @@ export default function Home() {
             "name": "totalSupply",
             "outputs": [
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "stateMutability": "view",
@@ -606,9 +662,9 @@ export default function Home() {
                     "type": "address"
                 },
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "_value",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "name": "transfer",
@@ -635,9 +691,9 @@ export default function Home() {
                     "type": "address"
                 },
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "_value",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "name": "transferFrom",
@@ -670,37 +726,41 @@ export default function Home() {
         switch(name) {
             case 'account':
                 setAccount(value)
+                break;
         }
     }
 
+    const [hasBet, setHasBet] = useState(false)
     const newData = async () => {
         try{
             
-            const estimateGas = await smartContract.methods.newBet(account).estimateGas({from:account})
-            await smartContract.methods.newBet(account).send({from:account, gas:estimateGas.toString()})
+            if (hasBet) {
+                alert('Usuario ja possui uma bet')
+            } else {
+                const estimateGas = await smartContract.methods.newBet(account).estimateGas({from:account})
+                await smartContract.methods.newBet(account).send({from:account, gas:estimateGas.toString()})
+                
+                const allBets = await smartContract.methods.getAllBets().call();
+                console.log(allBets)
+                const id = allBets[allBets.length-1];
+                const betContract = new web3.eth.Contract(betAbi, id);
+                const odd = await betContract.methods.CalcOdd().call();
+                const totalAmmount = await betContract.methods.getValueGift().call();
+                const _status = await betContract.methods.getStatusBet().call();
+
+
+                setData((prev) => [
+                    ...prev,
+                    {id:id, odd:odd, totalAmmount:totalAmmount, status:_status}
+                    ])
+                await handleManage()
+                setManage(false)
+            }
+
             
-            const allBets = await smartContract.methods.getAllBets().call();
-            console.log(allBets)
-            const id = allBets[allBets.length-1];
-            const betContract = new web3.eth.Contract(betAbi, id);
-            const odd = await betContract.methods.CalcOdd().call();
-            const totalAmmount = await betContract.methods.getValueGift().call();
-            const _status = await betContract.methods.getStatusBet().call();
-
-
-            setData((prev) => [
-                ...prev,
-                {id:id, odd:odd, totalAmmount:totalAmmount, status:_status}
-                ])
-            handleManage()
-            setManage(false)
         } catch (error) { 
             console.log(error)
         }
-        
-
-        
-        
     }
 
     const [active, setActive] = useState(false)
@@ -761,14 +821,15 @@ export default function Home() {
 
     //ta funcionando +- corrigir uns bugs
     const handleManage = async() => {
-        setManage(!manage)
-        if (manage) {
+        
+        if (!manage) {
             const address = await smartContract.methods.getBetAddress(account).call()
             const contract = new web3.eth.Contract(betAbi, address)
             const status = await contract.methods.getStatusBet().call()
 
             if (status == 1) {
-
+                
+                setHasBet(true)
                 let _id = contract.options.address
                 let _odd = await contract.methods.CalcOdd().call()
                 let _totalAmmount = await contract.methods.getValueGift().call()
@@ -777,6 +838,7 @@ export default function Home() {
                 setBetContractToManage({id:_id, odd:_odd, totalAmmount:_totalAmmount, bettors:_bettors?.length})
             }
         }
+        setManage(!manage)
     }
 
     //ta funcionando
@@ -793,6 +855,7 @@ export default function Home() {
             setManage(false)
             setBetContractToManage({id:'', odd:[], totalAmmount:0, bettors:0})
             setData(data)
+            setHasBet(false)
 
             alert("bet encerrada")
         } catch (error) {
@@ -812,6 +875,8 @@ export default function Home() {
             estimateGas = await smartContract.methods.payABet(owner, value, opc).estimateGas({from:account})
             await smartContract.methods.payABet(owner, value, opc).send({from:account, gas:estimateGas.toString()})
             alert(`Aposta de ${value} Lula coins na opc ${opc} foi feita com sucesso!`)
+            const cash = await workTokenContract.methods.balanceOf(account).call();
+            setValue(cash)
 
             const index = data.indexOf(id)
             data.pop(index)
@@ -831,30 +896,35 @@ export default function Home() {
         
     }
 
-    async function getEvents(toSearch:string) {
-        try {
-            const allBets = await smartContract.methods.getAllBets().call()
+    const [TorS, setTorS] = useState(true)
 
-            for (var i = 0; i < allBets.length; i++) {
-                const contract = new web3.eth.Contract(betAbi,allBets[i])
-                let owner = await contract.methods.getOwner().call();
-                let status = await contract.methods.getStatusBet().call();
-                if(toSearch == owner && status == 0) {
-                    const events = contract.getPastEvents('Winners', {
-                        filter:{owner:toSearch},
-                        fromBlock:0,
-                        toBlock:'latest'
-                    })
-                    console.log('eventos: ', events, 'hash: ', allBets[i])
-                }
-            }
-        } catch (error) {
-            console.log('deu ruim aqui pae', error)
-        }       
-    }
+    const [oldResult, setOldResult] = useState<oldResults[]>([])
 
     const handleSearch = async() => {
-
+        setTorS(!TorS)
+        if (!TorS) {
+            try {
+            
+                const allBets = await smartContract.methods.getAllBets().call()
+                setOldResult([])
+    
+                for (var i = 0; i < allBets.length; i++) {
+                    
+                    const contract = new web3.eth.Contract(betAbi,allBets[i])
+                    const value = await contract.methods.getAmmountForWinner().call()
+                    const opcWinner = await contract.methods.getWinner().call();
+                    
+                    setOldResult((prev) => [
+                    ...prev,
+                    {id:allBets[i], winners:opcWinner, supply:value}
+                    ])
+                }
+            } catch (error) {
+                console.log('deu ruim aqui pae', error)
+            } 
+        }
+        
+        
     }
 
     return (
@@ -867,23 +937,20 @@ export default function Home() {
                     <div className="p-2 m-2">
                         <button className="rounded-lg border-3 bg-black text-white px-3 py-2 mr-2" onClick={() => newData()}> New Bet</button>
                         <button className="rounded-lg border-3 bg-black text-white px-3 py-2 ml-2 mr-2" onClick={() => handleManage()}> Manage Bet</button>
-                        <input 
-                            className="border-black border-2 rounded-lg ml-2"
-                            type="text"
-                            placeholder="Search for result or Bet"
-                        />
-                        <button onClick={() =>  getEvents(account)}>search</button>
+                        <button onClick={() =>  handleSearch()}>Resultados</button>
                     </div>
                     <div className="flex">
-                        <div>
-                            <table className="m-2">
+                        <div> 
+                            {
+                                TorS ? (
+                                    <table className="m-2">
                                 <thead>
                                     <tr>
                                     </tr>
                                 </thead>
                                 <tbody className="p-2 m-2">
                                     {data.map((item) => (
-                                        <tr key={item.id} className="m-2">
+                                        <tr  className="m-2">
                                             <td className="border-2 border-black rounded-lg m-2 p-2 flex flex-col"> 
                                                 <div className="flex flex-col" onClick={() => {setActive(!active); activeHandler(item.id)}}>
                                                     <div>
@@ -904,6 +971,35 @@ export default function Home() {
                                     ))}
                                 </tbody>
                             </table>
+                                ) : (
+                                    <table className="m-2">
+                                <thead>
+                                    <tr>
+                                    </tr>
+                                </thead>
+                                <tbody className="p-2 m-2">
+                                    {oldResult?.map((item) => (
+                                        <tr  className="m-2">
+                                            <td className="border-2 border-black rounded-lg m-2 p-2 flex flex-col"> 
+                                                <div className="flex flex-col" >
+                                                    <div>
+                                                        Bet hash: {item.id}
+                                                    </div>
+                                                    <div>
+                                                        Total ammount for user: {item.supply}
+                                                    </div>
+                                                    <div>
+                                                        {`Wallets Winners: ${item.winners.map(item => item).join(', ')}`}
+                                                    </div>
+                                                </div> 
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                                )
+                            }
+                            
                             {manage ? (
                                 <div className=" flex flex-col">
                                     <button className="rounded-lg border-3 bg-black text-white px-3 py-2" onClick={() => handleFinish()}>

@@ -16,9 +16,9 @@ export default function Home() {
         {
             "inputs": [
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "_initialSupply",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "stateMutability": "nonpayable",
@@ -41,9 +41,9 @@ export default function Home() {
                 },
                 {
                     "indexed": false,
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "_value",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "name": "Approval",
@@ -66,9 +66,9 @@ export default function Home() {
                 },
                 {
                     "indexed": false,
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "_value",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "name": "Transfer",
@@ -90,9 +90,9 @@ export default function Home() {
             "name": "allowance",
             "outputs": [
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "stateMutability": "view",
@@ -106,9 +106,9 @@ export default function Home() {
                     "type": "address"
                 },
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "_value",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "name": "approve",
@@ -133,9 +133,9 @@ export default function Home() {
             "name": "balance",
             "outputs": [
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "cash",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "stateMutability": "view",
@@ -152,9 +152,9 @@ export default function Home() {
             "name": "balanceOf",
             "outputs": [
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "stateMutability": "view",
@@ -165,9 +165,9 @@ export default function Home() {
             "name": "decimals",
             "outputs": [
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "stateMutability": "view",
@@ -204,9 +204,9 @@ export default function Home() {
             "name": "totalSupply",
             "outputs": [
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "stateMutability": "view",
@@ -220,9 +220,9 @@ export default function Home() {
                     "type": "address"
                 },
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "_value",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "name": "transfer",
@@ -249,9 +249,9 @@ export default function Home() {
                     "type": "address"
                 },
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "_value",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "name": "transferFrom",
